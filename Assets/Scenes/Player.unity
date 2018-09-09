@@ -214,12 +214,20 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   groundedFrames: 0
-  maxGroundedFrames: 3
+  maxGroundedFrames: 4
   grounded: 0
   direction: -1
-  jumpVelocity: 25
-  climbVelocity: 7
-  jumpingVertVelocity: 2
+  jumpVelocity: 30
+  climbVelocity: 10
+  jumpingVertVelocity: 5
+  jumpframes: 0
+  maxJumpframes: 10
+  jumpFramesMod: 2
+  lastFrameMove: 0
+  lastMoveDir: 0
+  afterMoveFrames: 0
+  maxAfterMoveFrames: 1
+  moveCorrectionMod: 0.5
   jumping: 0
 --- !u!50 &239814135
 Rigidbody2D:
@@ -233,7 +241,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 0.0001
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
