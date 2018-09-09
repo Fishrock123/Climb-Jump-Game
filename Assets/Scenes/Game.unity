@@ -231,4 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFrameRate: 500
-  currentScene: Level 1
+  initialScenes:
+  - Player
+  initialLevel: Level 1
+  currentLevel: 

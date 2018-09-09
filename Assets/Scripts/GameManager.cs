@@ -7,12 +7,24 @@ public class GameManager : MonoBehaviour {
 
 	public int targetFrameRate = 500;
 
-	public string currentScene = "Level 1";
+	public string[] initialScenes;
+	public string initialLevel = "Level 1";
+
+	[SerializeField]
+	private string currentLevel;
 
 	// Use this for initialization
 	void Start () {
 		Application.targetFrameRate = targetFrameRate;
 		QualitySettings.vSyncCount = 0;
+
+		foreach (string sceneName in initialScenes) {
+			LoadSceneAdditiveDedupe(sceneName);
+		}
+
+		if (initialLevel != "") {
+			SetLevel(initialLevel);
+		}
 	}
 	
 	// Update is called once per frame
@@ -23,12 +35,24 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SetLevel (string sceneName) {
-		SceneManager.UnloadSceneAsync(currentScene);
+		Scene queriedScene = SceneManager.GetSceneByName(currentLevel);
+		if (queriedScene.IsValid() && queriedScene.isLoaded) {
+			SceneManager.UnloadSceneAsync(currentLevel);
+		}
 
-		currentScene = sceneName;
+		Debug.LogFormat("Setting level... {0}", sceneName);
 
-		SceneManager.LoadSceneAsync(sceneName);
+		currentLevel = sceneName;
+
+		LoadSceneAdditiveDedupe(sceneName);
 
 		GameObject.Find("Player").GetComponent<PlayerBehavior>().Reset();
+	}
+
+	public void LoadSceneAdditiveDedupe (string sceneName) {
+		Scene queriedScene = SceneManager.GetSceneByName(sceneName);
+		if (queriedScene.IsValid() && queriedScene.isLoaded) return;
+
+		SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 	}
 }
